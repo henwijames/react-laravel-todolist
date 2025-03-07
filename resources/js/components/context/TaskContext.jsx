@@ -1,11 +1,18 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React, {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
 import apiService from "../services/apiService";
 
 const TaskContext = createContext(undefined);
 
 export const TaskProvider = ({ children }) => {
     const [taskList, setTaskList] = React.useState([]);
-    const fetchTaskList = () => {
+    const [loading, setLoading] = useState(false);
+    const fetchTaskList = useCallback(() => {
         apiService
             .get("get-task-list")
             .then((response) => {
@@ -15,18 +22,20 @@ export const TaskProvider = ({ children }) => {
             .catch((error) => {
                 console.log(error);
             });
-    };
+    }, []);
 
     useEffect(() => {
         fetchTaskList();
-    }, []);
+    }, [fetchTaskList]);
 
-    const updateContextData = () => {
+    const updateContextData = useCallback(() => {
         fetchTaskList();
-    };
+    }, [fetchTaskList]);
 
     return (
-        <TaskContext.Provider value={{ taskList, updateContextData }}>
+        <TaskContext.Provider
+            value={{ taskList, updateContextData, setLoading, loading }}
+        >
             {children}
         </TaskContext.Provider>
     );

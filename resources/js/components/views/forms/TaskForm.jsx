@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import apiService from "../../services/apiService";
 import { useTaskContext } from "../../context/TaskContext";
 
 const TaskForm = () => {
-    const [title, setTitle] = React.useState("");
-    const [description, setDescription] = React.useState("");
-    const [errors, setErrors] = React.useState({});
-    const { updateContextData } = useTaskContext();
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [errors, setErrors] = useState({});
+    const { updateContextData, setLoading, loading } = useTaskContext();
 
     // React.useEffect(() => {
     //     console.log("@@@", title, description);
     // }, [title, description]);
 
     const handleSubmit = () => {
+        setLoading(true);
         apiService
             .post("save-task", { title, description })
             .then((response) => {
@@ -27,6 +28,11 @@ const TaskForm = () => {
                 if (error.response && error.response.status === 422) {
                     setErrors(error.response.data.error);
                 }
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    setLoading(false);
+                }, 2000);
             });
     };
 
@@ -65,10 +71,22 @@ const TaskForm = () => {
                 <p className="text-red-500 text-sm">{errors.description[0]}</p>
             )}
             <button
-                className="btn btn-primary z-10 hover:bg-accent"
+                className={`btn z-10 flex justify-center items-center ${
+                    loading
+                        ? "bg-black cursor-not-allowed"
+                        : "btn-primary hover:bg-accent"
+                }`}
                 onClick={handleSubmit}
+                disabled={loading}
             >
-                Save Task
+                {loading ? (
+                    <div className="flex gap-2 items-center">
+                        Save Task
+                        <span className="loading loading-spinner loading-xs"></span>
+                    </div>
+                ) : (
+                    "Save Task"
+                )}
             </button>
         </div>
     );

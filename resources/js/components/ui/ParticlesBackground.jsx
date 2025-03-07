@@ -47,11 +47,11 @@ const ParticlesBackground = (props) => {
                 },
                 modes: {
                     push: {
-                        distance: 200,
+                        distance: 100,
                         duration: 15,
                     },
                     grab: {
-                        distance: 150,
+                        distance: 200,
                     },
                 },
             },
@@ -73,7 +73,7 @@ const ParticlesBackground = (props) => {
                         default: "bounce",
                     },
                     random: true,
-                    speed: 1,
+                    speed: 2,
                     straight: false,
                 },
                 number: {
