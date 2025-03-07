@@ -8,6 +8,7 @@
   <title>React x Laravel</title>
   @vite('resources/css/app.css')
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 </head>
 
 <body>
