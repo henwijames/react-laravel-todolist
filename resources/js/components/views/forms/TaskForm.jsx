@@ -8,10 +8,6 @@ const TaskForm = () => {
     const [errors, setErrors] = useState({});
     const { updateContextData, setLoading, loading } = useTaskContext();
 
-    // React.useEffect(() => {
-    //     console.log("@@@", title, description);
-    // }, [title, description]);
-
     const handleSubmit = () => {
         setLoading(true);
         apiService
@@ -32,7 +28,7 @@ const TaskForm = () => {
             .finally(() => {
                 setTimeout(() => {
                     setLoading(false);
-                }, 2000);
+                }, 1000);
             });
     };
 
