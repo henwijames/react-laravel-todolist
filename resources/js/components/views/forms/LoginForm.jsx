@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { login } from "@/components/services/authService";
+import Logo from "../Logo";
 
 export function LoginForm({ className, ...props }) {
     const [formData, setFormData] = useState({
@@ -34,10 +35,9 @@ export function LoginForm({ className, ...props }) {
             setWarning(message);
             localStorage.removeItem("redirectMessage");
         }
-    }, [token, navigate]);
+    }, [navigate]);
 
     const handleChange = (e) => {
-        e.preventDefault();
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
@@ -48,6 +48,10 @@ export function LoginForm({ className, ...props }) {
             navigate("/");
         } catch (err) {
             setError("Invalid Credentials");
+
+            setTimeout(() => {
+                setError(null);
+            }, 3000);
         }
     };
 
@@ -55,6 +59,7 @@ export function LoginForm({ className, ...props }) {
         <div className={cn("flex flex-col gap-6", className)} {...props}>
             <Card>
                 <CardHeader>
+                    <Logo />
                     <CardTitle>Login to your account</CardTitle>
                     <CardDescription>
                         Enter your email below to login to your account
@@ -72,7 +77,7 @@ export function LoginForm({ className, ...props }) {
                                     name="email"
                                     onChange={handleChange}
                                     value={formData.email}
-                                    placeholder="m@example.com"
+                                    placeholder="johndoe@gmail.com"
                                     required
                                 />
                             </div>
@@ -93,23 +98,27 @@ export function LoginForm({ className, ...props }) {
                                     name="password"
                                     id="password"
                                     type="password"
+                                    placeholder="Password"
                                     required
                                 />
                             </div>
                             <div className="flex flex-col gap-3">
-                                <Button type="submit" className="w-full">
+                                <Button
+                                    type="submit"
+                                    className="w-full cursor-pointer"
+                                >
                                     Login
                                 </Button>
                             </div>
                         </div>
                         <div className="mt-4 text-center text-sm">
                             Don&apos;t have an account?{" "}
-                            <a
-                                href="/signup"
+                            <Link
+                                to="/signup"
                                 className="underline underline-offset-4"
                             >
                                 Sign up
-                            </a>
+                            </Link>
                         </div>
                     </form>
                 </CardContent>

@@ -5,6 +5,7 @@ import reactLogo from "@public/assets/images/react.png";
 import laravelLogo from "@public/assets/images/laravel.png";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../services/authService";
+import Logo from "./Logo";
 
 const Main = () => {
     const [user, setUser] = useState(null);
@@ -35,22 +36,7 @@ const Main = () => {
             <div className="max-w-6xl mx-auto w-full flex flex-col sm:flex-row gap-10">
                 <div className="sm:w-6/12 w-full">
                     <div className="mb-4 text-center">
-                        <div className="flex justify-center items-center gap-3 mb-2 min-h-[40px]">
-                            <img
-                                src={reactLogo}
-                                alt="React"
-                                className="max-w-[40px] max-h-[40px]"
-                                loading="lazy"
-                            />
-                            +
-                            <img
-                                src={laravelLogo}
-                                alt="Laravel"
-                                className="max-w-[40px] max-h-[40px]"
-                                loading="lazy"
-                            />
-                            TODO List
-                        </div>
+                        <Logo />
                         <div className="text-sm tracking-wider leading-5 font-light">
                             {loading ? (
                                 "Loading..."

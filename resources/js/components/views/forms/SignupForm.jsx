@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "@/components/services/authService";
 
 export function SignupForm({ className, ...props }) {
@@ -25,7 +25,6 @@ export function SignupForm({ className, ...props }) {
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        e.preventDefault();
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
@@ -78,7 +77,7 @@ export function SignupForm({ className, ...props }) {
                     <form onSubmit={handleSubmit}>
                         <div className="flex flex-col gap-6">
                             <div className="grid gap-3">
-                                <Label htmlFor="email">Name</Label>
+                                <Label htmlFor="name">Nickname</Label>
                                 <Input
                                     name="name"
                                     type="name"
@@ -132,19 +131,22 @@ export function SignupForm({ className, ...props }) {
                                 )}
                             </div>
                             <div className="flex flex-col gap-3">
-                                <Button type="submit" className="w-full">
+                                <Button
+                                    type="submit"
+                                    className="w-full cursor-pointer"
+                                >
                                     Signup
                                 </Button>
                             </div>
                         </div>
                         <div className="mt-4 text-center text-sm">
                             Don&apos;t have an account?{" "}
-                            <a
-                                href="/login"
+                            <Link
+                                to="/login"
                                 className="underline underline-offset-4"
                             >
                                 Login
-                            </a>
+                            </Link>
                         </div>
                     </form>
                 </CardContent>
