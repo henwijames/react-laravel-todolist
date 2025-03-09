@@ -29,7 +29,7 @@ const TaskList = () => {
     const renderList = (task) => {
         const { id, title, description } = task;
         return (
-            <div className="rounded-xl bg-accent text-white p-6" key={id}>
+            <div className="rounded-xl bg-gray-100 text-black p-6" key={id}>
                 <div className="flex justify-between items-center">
                     {/* Tasks */}
                     <div>
@@ -39,7 +39,7 @@ const TaskList = () => {
                         </div>
                     </div>
                     <div>
-                        <ul className="menu menu-horizontal bg-base-200/40 rounded-box">
+                        <ul className="menu menu-horizontal bg-neutral rounded-box">
                             <li>
                                 <div
                                     className="tooltip"
@@ -49,7 +49,7 @@ const TaskList = () => {
                                     <svg
                                         width={15}
                                         height={15}
-                                        className="stroke-current"
+                                        className="stroke-white"
                                         fill="none"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -72,7 +72,7 @@ const TaskList = () => {
                                         width={15}
                                         height={15}
                                         fill="none"
-                                        className="stroke-current"
+                                        className="stroke-white"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth={2}

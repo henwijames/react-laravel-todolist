@@ -6,6 +6,7 @@
         "dev": "vite"
     },
     "devDependencies": {
+        "@shadcn/ui": "^0.0.4",
         "@tailwindcss/vite": "^4.0.9",
         "@vitejs/plugin-react": "^4.3.4",
         "autoprefixer": "^10.4.20",
@@ -18,11 +19,19 @@
         "vite": "^6.0.11"
     },
     "dependencies": {
+        "@radix-ui/react-label": "^2.1.2",
+        "@radix-ui/react-slot": "^1.1.2",
+        "@tailwindcss/postcss": "^4.0.12",
         "@tsparticles/all": "^3.8.1",
         "@tsparticles/react": "^3.0.0",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "lucide-react": "^0.479.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-router-dom": "^7.2.0",
-        "tailwind-scrollbar": "^4.0.1"
+        "tailwind-merge": "^3.0.2",
+        "tailwind-scrollbar": "^4.0.1",
+        "tailwindcss-animate": "^1.0.7"
     }
 }

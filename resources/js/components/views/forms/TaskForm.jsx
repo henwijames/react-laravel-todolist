@@ -49,7 +49,7 @@ const TaskForm = () => {
                 }}
                 placeholder="Title"
                 onKeyDown={handleKeyDown}
-                className="input w-full bg-white"
+                className="input border w-full"
             />
             {errors.title && (
                 <p className="text-red-500 text-sm">{errors.title[0]}</p>
@@ -59,7 +59,7 @@ const TaskForm = () => {
                 onChange={(event) => {
                     setDescription(event.target.value);
                 }}
-                className="textarea w-full min-h-52 bg-white z-10"
+                className="textarea border w-full min-h-52"
                 placeholder="Description"
                 onKeyDown={handleKeyDown}
             ></textarea>
@@ -67,7 +67,7 @@ const TaskForm = () => {
                 <p className="text-red-500 text-sm">{errors.description[0]}</p>
             )}
             <button
-                className={`btn z-10 flex justify-center items-center ${
+                className={`btn flex justify-center items-center ${
                     loading
                         ? "bg-black cursor-not-allowed"
                         : "btn-primary hover:bg-accent"

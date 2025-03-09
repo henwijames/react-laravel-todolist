@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = window.env.API_BASE_URL;
+const API_BASE_URL = window.env.API_BASE_URL || "http://localhost:8000/api/";
 
 const apiService = axios.create({
     baseURL: API_BASE_URL,
@@ -9,15 +9,18 @@ const apiService = axios.create({
     },
 });
 
+const getAuthToken = () => localStorage.getItem("token");
+
 apiService.interceptors.request.use((config) => {
+    const token = getAuthToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+
     const csrfToken = document.querySelector('meta[name="csrf-token"]');
 
     if (csrfToken) {
-        const token = csrfToken.getAttribute("content");
-
-        if (token) {
-            config.headers["X-CSRF-TOKEN"] = token;
-        }
+        config.headers["X-CSRF_TOKEN"] = csrfToken.getAttribute("content");
     }
 
     return config;

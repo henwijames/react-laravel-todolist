@@ -16,7 +16,6 @@ export const TaskProvider = ({ children }) => {
         apiService
             .get("get-task-list")
             .then((response) => {
-                console.log(response);
                 setTaskList(response.data.data);
             })
             .catch((error) => {
