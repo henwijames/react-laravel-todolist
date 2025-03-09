@@ -16,16 +16,17 @@ export const login = async (userData) => {
 export const getUser = async () => {
     try {
         const res = await apiService.get("/user");
+        console.log("API Response:", res.data); // ✅ Log response
         return res.data;
     } catch (error) {
-        console.error("Error fetching user", error);
+        console.error("Error fetching user:", error.response?.data || error);
         throw error;
     }
 };
 
 export const logout = async () => {
     try {
-        await apiService.post("/logout");
+        await apiService.get("/logout");
         localStorage.removeItem("token");
     } catch (error) {
         console.error("Logout Failed:", error);

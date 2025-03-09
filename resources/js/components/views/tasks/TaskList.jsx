@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useTaskContext } from "../../context/TaskContext";
 import { truncateText } from "../../utils/string";
 import apiService from "../../services/apiService";
+import { Button } from "@/components/ui/button";
+import { logout } from "@/components/services/authService";
+import { useNavigate } from "react-router-dom";
 
 const TaskList = () => {
     const { taskList, updateContextData, loading, setLoading } =
         useTaskContext();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -125,10 +129,24 @@ const TaskList = () => {
             });
     };
 
+    const handleLogout = async () => {
+        await logout();
+        navigate("/login");
+    };
+
     return (
         <div className="card bg-primary text-primary-content w-full sm:px-0 lg:px-5">
             <div className="card-body">
-                <h2 className="card-title">Your Task</h2>
+                <div className="flex justify-between items-center w-full">
+                    <h2 className="card-title">Your Task</h2>
+                    <button
+                        onClick={handleLogout}
+                        className="bg-white cursor-pointer text-black border border-gray-300 px-4 py-2 rounded"
+                    >
+                        Logout
+                    </button>
+                </div>
+
                 <p className="text-sm">
                     Stay on top of your to-dos and boost productivity with ease
                 </p>

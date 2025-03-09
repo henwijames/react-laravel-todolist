@@ -7,6 +7,7 @@ const apiService = axios.create({
     headers: {
         "Content-Type": "application/json",
     },
+    withCredentials: true,
 });
 
 const getAuthToken = () => localStorage.getItem("token");

@@ -10,7 +10,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { login } from "@/components/services/authService";
 
 export function LoginForm({ className, ...props }) {
     const [formData, setFormData] = useState({
@@ -19,7 +20,37 @@ export function LoginForm({ className, ...props }) {
     });
 
     const [error, setError] = useState(null);
+    const [warning, setWarning] = useState("");
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
+
+    useEffect(() => {
+        if (token) {
+            navigate("/");
+        }
+
+        const message = localStorage.getItem("redirectMessage");
+        if (message) {
+            setWarning(message);
+            localStorage.removeItem("redirectMessage");
+        }
+    }, [token, navigate]);
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await login(formData);
+            navigate("/");
+        } catch (err) {
+            setError("Invalid Credentials");
+        }
+    };
+
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
             <Card>
@@ -28,15 +59,19 @@ export function LoginForm({ className, ...props }) {
                     <CardDescription>
                         Enter your email below to login to your account
                     </CardDescription>
+                    {error && <p className="text-sm text-red-500">{error}</p>}
                 </CardHeader>
                 <CardContent>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="flex flex-col gap-6">
                             <div className="grid gap-3">
                                 <Label htmlFor="email">Email</Label>
                                 <Input
                                     id="email"
                                     type="email"
+                                    name="email"
+                                    onChange={handleChange}
+                                    value={formData.email}
                                     placeholder="m@example.com"
                                     required
                                 />
@@ -51,7 +86,15 @@ export function LoginForm({ className, ...props }) {
                                         Forgot your password?
                                     </a>
                                 </div>
-                                <Input id="password" type="password" required />
+
+                                <Input
+                                    onChange={handleChange}
+                                    value={formData.password}
+                                    name="password"
+                                    id="password"
+                                    type="password"
+                                    required
+                                />
                             </div>
                             <div className="flex flex-col gap-3">
                                 <Button type="submit" className="w-full">

@@ -68,9 +68,7 @@ const TaskForm = () => {
             )}
             <button
                 className={`btn flex justify-center items-center ${
-                    loading
-                        ? "bg-black cursor-not-allowed"
-                        : "btn-primary hover:bg-accent"
+                    loading ? "bg-black cursor-not-allowed" : "btn-primary"
                 }`}
                 onClick={handleSubmit}
                 disabled={loading}
